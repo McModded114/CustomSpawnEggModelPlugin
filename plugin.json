@@ -1,7 +1,8 @@
 {
   "id": "custom_spawn_egg_model",
   "minversion": 202300100000,
-  "weight": 3002,
+  "weight": 3001,
+  "javaplugin": "net.mcmodded.spawnegg.Launcher",
   "info": {
     "name": "Custom Spawn Egg Model Plugin",
     "version": "1.0.0",
