@@ -1,0 +1,38 @@
+
+package net.mcmodded.spawnegg;
+
+import javax.swing.SwingUtilities;
+import net.mcreator.plugin.JavaPlugin;
+import net.mcreator.plugin.Plugin;
+import net.mcreator.plugin.events.PreGeneratorsLoadingEvent;
+import net.mcreator.plugin.events.ui.ModElementGUIEvent.BeforeLoading;
+import net.mcreator.plugin.events.workspace.MCreatorLoadedEvent;
+import net.mcmodded.spawnegg.registry.PluginActions;
+import net.mcmodded.spawnegg.registry.PluginElementTypes;
+import net.mcmodded.spawnegg.registry.PluginEventTriggers;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class Launcher extends JavaPlugin {
+    public static final Logger LOG = LogManager.getLogger("CustomSpawnEggModel Plugin");
+    public static PluginActions ACTION_REGISTRY;
+
+    public Launcher(Plugin plugin) {
+        super(plugin);
+        this.addListener(PreGeneratorsLoadingEvent.class, (event) -> {
+            PluginElementTypes.load();
+        });
+        this.addListener(BeforeLoading.class, (event) -> {
+            SwingUtilities.invokeLater(() -> {
+                PluginEventTriggers.dependencyWarning(event.getMCreator(), event.getModElementGUI());
+            });
+        });
+        this.addListener(MCreatorLoadedEvent.class, (event) -> {
+            ACTION_REGISTRY = new PluginActions(event.getMCreator());
+            SwingUtilities.invokeLater(() -> {
+                PluginEventTriggers.modifyMenus(event.getMCreator());
+            });
+        });
+        LOG.info("Plugin was loaded");
+    }
+}
