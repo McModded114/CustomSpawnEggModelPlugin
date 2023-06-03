@@ -1,0 +1,11 @@
+{
+  "id": "custom_spawn_egg_model",
+  "minversion": 202300100000,
+  "weight": 3002,
+  "info": {
+    "name": "Custom Spawn Egg Model Plugin",
+    "version": "1.0.0",
+    "description": "Changes how spawn eggs are generated. This way they don't need to look like default ones",
+    "author": "McModded114"
+  }
+}
